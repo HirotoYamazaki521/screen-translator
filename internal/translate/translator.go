@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
+	"log/slog"
 	"time"
 
 	"github.com/anthropics/anthropic-sdk-go"
@@ -49,6 +50,8 @@ func (t *ClaudeTranslator) Translate(ctx context.Context, pngBytes []byte) (stri
 
 	encoded := base64.StdEncoding.EncodeToString(pngBytes)
 
+	slog.Info("translate: sending to Claude Vision API", "bytes", len(pngBytes))
+
 	msg, err := t.client.Messages.New(ctx, anthropic.MessageNewParams{
 		Model:     model,
 		MaxTokens: 1024,
@@ -67,5 +70,7 @@ func (t *ClaudeTranslator) Translate(ctx context.Context, pngBytes []byte) (stri
 		return "", fmt.Errorf("empty response from claude")
 	}
 
-	return msg.Content[0].Text, nil
+	result := msg.Content[0].Text
+	slog.Info("translate: done", "chars", len(result))
+	return result, nil
 }
