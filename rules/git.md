@@ -15,11 +15,16 @@
 2. ブランチをプッシュ（`git push -u origin <branch>`）
 3. `gh pr create` で PR を自動作成する
 
+### PRタイトル
+
+- **日本語**でわかりやすく書く
+- 例: `internal/capture: スクリーンキャプチャと差分検出を追加`
+
 ### PR作成コマンド
 
 ```bash
 gh pr create \
-  --title "<タイトル>" \
+  --title "<日本語タイトル>" \
   --body "$(cat <<'EOF'
 ## 概要
 
