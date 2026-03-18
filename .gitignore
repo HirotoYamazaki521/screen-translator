@@ -3,6 +3,9 @@ build/bin
 frontend/dist
 node_modules
 
+# Wails内部ファイル
+frontend/package.json.md5
+
 # PR説明生成（手動コピペ用、アップロード不要）
 tmp/
 
