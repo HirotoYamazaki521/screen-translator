@@ -7,14 +7,20 @@
 | 新機能 | `feature/xxx` | `feature/capture-loop` |
 | バグ修正 | `fix/xxx` | `fix/diff-detection` |
 
-## 実装完了時のPR説明生成
+## 実装完了時のフロー
 
-ブランチ上での実装が完了したら、`tmp/pr-description.md` を生成する。
-このファイルはgitignoreされており、ユーザーが手動でコピペしてPRに貼り付ける。
+ブランチ上での実装が完了したら、以下の順で実行する。
 
-### 生成内容のフォーマット
+1. 変更をコミット
+2. ブランチをプッシュ（`git push -u origin <branch>`）
+3. `gh pr create` で PR を自動作成する
 
-```markdown
+### PR作成コマンド
+
+```bash
+gh pr create \
+  --title "<タイトル>" \
+  --body "$(cat <<'EOF'
 ## 概要
 
 <!-- 何をしたか1〜2行で -->
@@ -32,4 +38,9 @@
 ## 備考
 
 <!-- 補足事項があれば -->
+EOF
+)"
 ```
+
+- `tmp/pr-description.md` は作成しない（PR本文は `gh pr create` に直接渡す）
+- PR作成後、GitHub の URL を出力して確認できるようにする
