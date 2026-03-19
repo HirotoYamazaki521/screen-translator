@@ -41,7 +41,12 @@ func (a *App) startup(ctx context.Context) {
 	}
 	a.cfg = cfg
 	a.capturer = capture.New()
-	a.translator = translate.New(os.Getenv("ANTHROPIC_API_KEY"))
+
+	apiKey := os.Getenv("ANTHROPIC_API_KEY")
+	if apiKey == "" {
+		apiKey = cfg.APIKey
+	}
+	a.translator = translate.New(apiKey)
 }
 
 // --- フロントエンドから呼ばれるメソッド ---
@@ -84,6 +89,11 @@ func (a *App) SaveConfig(cfg config.Config) error {
 	}
 	a.mu.Lock()
 	a.cfg = cfg
+	apiKey := os.Getenv("ANTHROPIC_API_KEY")
+	if apiKey == "" {
+		apiKey = cfg.APIKey
+	}
+	a.translator = translate.New(apiKey)
 	a.mu.Unlock()
 	return nil
 }

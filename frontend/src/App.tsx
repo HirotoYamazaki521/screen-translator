@@ -187,6 +187,23 @@ function App() {
               />
             </label>
 
+            {/* APIキー */}
+            <label className="block space-y-1">
+              <span className="text-sm text-white/60">Anthropic APIキー</span>
+              <input
+                type="password"
+                placeholder="sk-ant-..."
+                value={config.api_key ?? ""}
+                onChange={(e) =>
+                  setConfig(configModels.Config.createFrom({ ...config, api_key: e.target.value }))
+                }
+                className="w-full bg-bg border border-white/20 rounded px-3 py-2 text-sm font-mono"
+              />
+              <p className="text-xs text-white/30">
+                console.anthropic.com で取得できます
+              </p>
+            </label>
+
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setShowSettings(false)}
