@@ -25,6 +25,7 @@ type Config struct {
 	LanguageFrom    string  `json:"language_from"`
 	LanguageTo      string  `json:"language_to"`
 	FontSize        int     `json:"font_size"`
+	APIKey          string  `json:"api_key"`
 }
 
 // Default はデフォルト設定を返す。
